@@ -1,9 +1,11 @@
 Formidable = require 'formidable'
 http       = require 'http'
 fs         = require 'fs'
-util       = require 'util'
+url        = require 'url'
 Mustache   = require 'mustache'
+util       = require 'util'
 
+uploads = []
 
 # handle static resolving
 # if there is not a static with the given pathname, will resolve it as a 404
@@ -27,21 +29,35 @@ resolveStatic = (res, staticPathName, contentType="text/html") ->
 
 
 http.createServer (req, res) ->
+  pathname = url.parse(req.url).pathname
+
   # GET / upload form 
-  if req.url == '/' && req.method.toLowerCase() == 'get'
+  if pathname == '/' && req.method.toLowerCase() == 'get'
     resolveStatic res, 'index.html'
 
   # POST /uploads process upload
-  else if req.url == '/uploads' && req.method.toLowerCase() == 'post'
+  else if pathname == '/uploads' && req.method.toLowerCase() == 'post'
     form = new Formidable.IncomingForm()
+
+    # start a new upload using the provided uploadId 
+    uploadId = url.parse(req.url, true).query['uploadId']
+
+    # track progress 
+    form.on 'progress', (bytesReceived, bytesExpected) ->
+      uploads[uploadId] = (bytesReceived / bytesExpected) * 100 
+      
+    # process upload 
     form.parse req, (err, fields, files) ->
       fs.readFile "./public/uploadResult.html", 'utf-8', (error, content) ->
         res.writeHead 200, { "Content-Type" : 'text/html' }
-        output = Mustache.to_html content, files['upload']
+        output = Mustache.to_html content, { upload: files['upload'], id: uploadId }
         res.end output 
 
-  else if req.url == '/progress' && req.method.toLowerCase() == 'get'
-    res.writeHead 200, { "Content-Type" : 'text/plain' }
+  else if pathname == '/progress' && req.method.toLowerCase() == 'get'
+    res.writeHead 200, { "Content-Type" : 'application/json' }
+    # start a new upload using the provided uploadId 
+    uploadId = url.parse(req.url, true).query['uploadId']
+    res.end JSON.stringify { 'progress': uploads[uploadId] } 
 
   # its not a recognized route try to resolve as a static or throw 404
   else
