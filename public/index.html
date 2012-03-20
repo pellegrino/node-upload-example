@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Upload task</title>
+    <meta name="description" content="Uploads allthethings asynchronously">
+    <meta name="author" content="Vitor Pellegrino">
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>SuperUpload!</h1>
+
+    <div id="upload-form">
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <ol>
+          <li>
+            <input type="text" name="filename">
+            <input type="file" name="file">
+          </li>
+
+          <div id="upload-status"></div>
+        </ol>
+      </form>
+    </div>
+
+    <div id="description-form">
+      <form action="/description" method="POST">
+        <ol>
+          <li>
+            <textarea name="description"></textarea>
+          </li>
+          <li> 
+            <input type="submit" value="save">
+          </li>
+        </ol>
+      </form>
+    </div>
+
+  </body>
+</html>
