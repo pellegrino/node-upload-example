@@ -6,6 +6,7 @@ It is a small project created to demonstrate non blocking uploads with a minimum
 
 * node.js
 * node-formidable - to handle multipart uploads 
+* mustache.js - Logic less template engine
 * jquery 
 * vows - to write tests 
 

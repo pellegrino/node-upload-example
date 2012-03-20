@@ -5,7 +5,8 @@
     "version": "0.0.1",
     "dependencies": {
       "formidable": ">=1.0.9",
-      "coffee-script": ">=1.2.0"
+      "coffee-script": ">=1.2.0",
+      "mustache":     "0.4.0"
     },
     "devDependencies": {
       "vows": "0.6.2"

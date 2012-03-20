@@ -5,6 +5,8 @@
     <title>Upload task</title>
     <meta name="description" content="Uploads allthethings asynchronously">
     <meta name="author" content="Vitor Pellegrino">
+    <link href="/css/upload.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -13,11 +15,11 @@
     <h1>SuperUpload!</h1>
 
     <div id="upload-form">
-      <form action="/upload" method="POST" enctype="multipart/form-data">
+
+      <form action="/uploads" id="uploadForm" enctype="multipart/form-data" method="post" target="uploadTarget">
         <ol>
           <li>
-            <input type="text" name="filename">
-            <input type="file" name="file">
+            <input type="file" name="upload">
           </li>
 
           <div id="upload-status"></div>
@@ -29,14 +31,17 @@
       <form action="/description" method="POST">
         <ol>
           <li>
-            <textarea name="description"></textarea>
+          <textarea name="description"></textarea>
           </li>
           <li> 
-            <input type="submit" value="save">
+          <input type="submit" value="save">
           </li>
         </ol>
       </form>
     </div>
-
+    <iframe id="uploadTarget" name="uploadTarget" frameborder="0"></iframe>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
+    <script src="/js/upload.js"></script>    
   </body>
 </html>
