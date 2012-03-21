@@ -18,7 +18,6 @@ vows
       "it should not have any description": (topic) ->
         assert.equal topic.getDescription() , ''
 
-
     "when setting description":
       topic: new Upload()
 
@@ -76,6 +75,11 @@ vows
 
         assert.equal    Upload.fetch('1'), upload1
         assert.notEqual Upload.fetch('2'), upload1
+
+      "it should return a new upload if it doesn't exist yet": ->
+        # to avoid checking for the actual memory instance
+        assert.equal Upload.fetch('7').toJSON(), Upload.start('7').toJSON()
+
     
     "when converting to JSON":
       topic: ->
@@ -97,6 +101,9 @@ vows
 
       "it should parse progress": (topic) ->
         assert.equal topic['progress'],  10
+
+      "it should parse completed state": (topic) ->
+        assert.equal topic['completed'], false
 
 
   .export(module)

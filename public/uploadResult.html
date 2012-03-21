@@ -6,13 +6,14 @@
   <body>
     <script> 
       var uploadedFile = {
-        path:        "{{ upload.path        }}",
-        description: "{{ upload.description }}",
-        id:          "{{ upload.id          }}"
+        path:        "{{ upload.getPath        }}",
+        description: "{{ upload.getDescription }}",
+        id:          "{{ upload.uploadId          }}"
       }
       $(document).ready(function () {
         parent.$(parent.document).trigger('uploadFinished', uploadedFile);
       });
     </script>
   </body>
+
 </html>

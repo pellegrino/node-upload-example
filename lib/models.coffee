@@ -4,11 +4,10 @@ class Upload
   @start: (uploadId) ->
     @uploads[uploadId] = new Upload()
     @uploads[uploadId].uploadId = uploadId
-
     @uploads[uploadId]
 
   @fetch: (uploadId) ->
-    return @uploads[uploadId]
+    if @uploads[uploadId]? then @uploads[uploadId] else @start(uploadId)
 
   constructor: (@bytesReceived=0,@bytesExpected=0,@completed=false,@description="") ->
 
@@ -40,10 +39,8 @@ class Upload
       uploadId: @uploadId,
       progress: @progress(),
       description: @getDescription(),
+      completed: @complete(),
       path: @getPath()
     }
-
-
-    
 
 module.exports.Upload = Upload

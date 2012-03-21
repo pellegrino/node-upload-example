@@ -4,7 +4,7 @@ fs         = require 'fs'
 url        = require 'url'
 Mustache   = require 'mustache'
 
-uploads = []
+Upload     = require('./lib/models').Upload
 
 PORT = process.env.PORT || '8000'
 
@@ -42,18 +42,16 @@ http.createServer (req, res) ->
 
     # start a new upload using the provided uploadId 
     uploadId = url.parse(req.url, true).query['uploadId']
-    Upload.start uploadId
+    upload = Upload.start(uploadId)
 
     # track progress 
     form.on 'progress', (bytesReceived, bytesExpected) ->
-      upload = Upload.fetch uploadId
       upload.updateProgress bytesReceived , bytesExpected
       
     # process upload 
     form.parse req, (err, fields, files) ->
       fs.readFile "./public/uploadResult.html", 'utf-8', (error, content) ->
         res.writeHead 200, { "Content-Type" : 'text/html' }
-        upload = Upload.fetch(uploadId)
         upload.updateFile(files['upload'])
 
         output = Mustache.to_html content, { upload: upload }
@@ -74,10 +72,10 @@ http.createServer (req, res) ->
 
   # GET /progress?uploadId=42 
   else if pathname == '/progress' && req.method.toLowerCase() == 'get'
-    res.writeHead 200, { "Content-Type" : 'application/json' }
     uploadId = url.parse(req.url, true).query['uploadId']
+    upload = Upload.fetch(uploadId)
 
-    upload = Upload.fetch uploadId
+    res.writeHead 200, { "Content-Type" : 'application/json' }
     res.end upload.toJSON()
 
   # its not a recognized route try to resolve as a static or throw 404
