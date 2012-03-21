@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('input[type=file]').change(function() {
+    // Creating the uploadId to identify this single upload throughout the application 
     uploadId = generateUploadId(); 
 
     // Adds uploadId to the queryString so it can be used as an identifier 
@@ -61,7 +62,7 @@ function fetchProgress(uploadId){
       value: response['progress']
     }); 
 
-    if(response['progress'] != 100){
+    if(! response['completed']){
       setTimeout(fetchProgress(uploadId), 1000);
     }
   });
