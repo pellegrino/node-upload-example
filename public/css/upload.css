@@ -1,3 +1,66 @@
-#uploadTarget {
+body {
+  font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 25px;
+
+  background-color: #eee;
+}
+
+iframe#uploadTarget {
   display: none;
+}
+
+
+ol {
+  list-style: none;
+}
+
+form label {
+  display: block;
+}
+
+
+#container {
+  width: 960px;
+  margin: 0 auto;
+
+  background-color: white;
+  min-height: 500px;
+  padding: 1em 1em 1em 2em;
+}
+
+
+#container h1 {
+  font-family: 'Droid Serif', Georgia, Times, serif;
+  font-size: 49px;
+  line-height: 65px;
+  padding-left: 0.7em;
+}
+
+
+#container #uploadDetails , #container #upload-form{
+  border-top: 1px solid #eee;
+}
+
+#container #description-form textarea {
+  width: 500px;
+  height: 130px;
+}
+
+#container #description-form #uploadDescriptionSubmit {
+  color: blue;
+  float: right
+  padding: 1em;
+}
+
+
+#container #uploadDetails #uploadDescription {
+  padding: 2em;
+  background-color: #eee;
+}
+
+#footer p {
+  font-size: 0.8em;
+  color: #666;
+
 }
