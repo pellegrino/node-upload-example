@@ -6,6 +6,11 @@ body {
   background-color: #eee;
 }
 
+a {
+  color:  #C00;
+
+}
+
 iframe#uploadTarget {
   display: none;
 }
@@ -37,11 +42,12 @@ form label {
   font-size: 49px;
   line-height: 65px;
   padding-left: 0.7em;
+  color: #C00;
 }
 
 
 #container #uploadDetails , #container #upload-form{
-  border-top: 1px solid #eee;
+  border-top: 1px solid #c4c3c2;
 }
 
 #container #description-form textarea {
@@ -55,7 +61,7 @@ form label {
 }
 
 #footer {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #c4c3c2;
 }
 
 #container #uploadDetails #uploadDescription {
@@ -63,10 +69,10 @@ form label {
 }
 
 #container #uploadDetails #uploadDescription.present {
-  background-color: #e1e1e1;
+  background-color: #c4c3c2;
 }
 
 #footer p {
   font-size: 0.8em;
-  color: #666;
+  color: #c4bfbf;
 }

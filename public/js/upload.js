@@ -57,7 +57,10 @@ function generateUploadId() {
 // if upload is still running
 function fetchProgress(uploadId){
   $.getJSON("/progress?uploadId=" + uploadId, function (response){
-    $('#uploadProgress').html("File is " + response['progress'] + " percent completed"); 
+    $('#uploadProgress').progressbar({
+      value: response['progress']
+    }); 
+
     if(response['progress'] != 100){
       setTimeout(fetchProgress(uploadId), 1000);
     }
