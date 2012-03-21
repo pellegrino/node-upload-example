@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Upload task</title>
+    <title>Upload async</title>
     <meta name="description" content="Uploads allthethings asynchronously">
     <meta name="author" content="Vitor Pellegrino">
     <link href="/css/upload.css" type="text/css" rel="stylesheet" />
@@ -34,16 +34,19 @@
             <textarea name="description" id="uploadDescriptionField"></textarea>
           </li>
           <li> 
-          <input type="submit" value="save">
+          <input type="submit" value="save" disabled id="uploadDescriptionSubmit">
           </li>
         </ol>
       </form>
     </div>
-    <iframe id="uploadTarget" name="uploadTarget" frameborder="0"></iframe>
 
-    <div id="uploadProgress"></div>
-    <div id="uploadStatus"></div>
-    <div id="uploadDescription"></div>
+    <iframe id="uploadTarget" name="uploadTarget"></iframe>
+
+    <p id="uploadDetails">
+      <span id="uploadProgress"></span>
+      <span id="uploadStatus"></span>
+      <span id="uploadDescription"></span>
+    </p>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
     <script src="/js/upload.js"></script>    

@@ -12,6 +12,12 @@ $(document).ready(function () {
   $(document).bind('uploadStarted', function(e, uploadId){
     // Sets the description form the correct uploadId 
     $('#uploadId').val(uploadId);
+    // cleans upload state
+    $('#uploadDescriptionSubmit').removeAttr('disabled');
+    $('#uploadProgres').html('');
+    $('#uploadStatus').html('');
+    $('#uploadDescription').html('');
+
     fetchProgress(uploadId);
   });
 
@@ -25,8 +31,7 @@ $(document).ready(function () {
   $('#description-form').find('form').bind('submit', function(e) {
     // prevents the form to being submitted 
     e.preventDefault();
-$.post("/uploads/description", 
-      { 
+$.post("/uploads/description", { 
         "uploadId": $('#uploadId').val(),  
         "description": $('#uploadDescriptionField').val()
       }, 
