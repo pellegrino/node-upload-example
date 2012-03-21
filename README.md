@@ -26,7 +26,7 @@ There is also a quite simple model [lib/models.coffee](https://github.com/pelleg
 
 ### Coffeescript
 
-Being coffeescript is a powerful language that compiles to (really nice) Javascript code, it was my weapon of choice for this project, since it made the code much more concise and also made sure that it was 
+Being coffeescript is a powerful language that compiles to (really nice) Javascript code, it was my weapon of choice for this project, since it made the code much more concise and also made sure that it was complient to the javascript best practices, or the "Good Parts"
 
 ###  Node.js
 
@@ -52,7 +52,7 @@ Used it to write the client side javascript and used jQuery-UI to create the pro
 
 ### Vows
 
-I normally use tests to drive the design of my solotuins. In this case, i've used vows to drive the implementation of my Upload model. I have never used Vows at the past but it ended up being a pleasant experience to write tests using it. 
+I normally use tests to drive the design of my solutions. In this case, i've used vows to drive the implementation of my Upload model. I have never used Vows at the past but it ended up being a pleasant experience to write tests using it. 
 
 ## Installation 
 
