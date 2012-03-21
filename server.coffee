@@ -42,18 +42,21 @@ http.createServer (req, res) ->
 
     # start a new upload using the provided uploadId 
     uploadId = url.parse(req.url, true).query['uploadId']
-    uploads[uploadId] =  { 'progress': 0, 'description': '' , 'path': '', 'id': uploadId}
+    Upload.start uploadId
 
     # track progress 
     form.on 'progress', (bytesReceived, bytesExpected) ->
-      uploads[uploadId]['progress'] = (bytesReceived / bytesExpected) * 100
+      upload = Upload.fetch uploadId
+      upload.updateProgress bytesReceived , bytesExpected
       
     # process upload 
     form.parse req, (err, fields, files) ->
       fs.readFile "./public/uploadResult.html", 'utf-8', (error, content) ->
         res.writeHead 200, { "Content-Type" : 'text/html' }
-        uploads[uploadId]['path'] = "#{files['upload']['path']}/#{files['upload']['name']}"
-        output = Mustache.to_html content, { upload: uploads[uploadId] }
+        upload = Upload.fetch(uploadId)
+        upload.updateFile(files['upload'])
+
+        output = Mustache.to_html content, { upload: upload }
         res.end output
 
   # POST /uploads/description
@@ -63,20 +66,19 @@ http.createServer (req, res) ->
 
     form.parse req, (err, fields, files) ->
       uploadId = fields['uploadId']
-      uploads[uploadId]['description'] = fields['description']
+      upload = Upload.fetch uploadId
+      upload.setDescription fields['description']
+
       res.writeHead 200, { "Content-Type" : "application/json" } 
-      res.end JSON.stringify(uploads[uploadId])
+      res.end upload.toJSON()
 
   # GET /progress?uploadId=42 
   else if pathname == '/progress' && req.method.toLowerCase() == 'get'
     res.writeHead 200, { "Content-Type" : 'application/json' }
-    # start a new upload using the provided uploadId 
     uploadId = url.parse(req.url, true).query['uploadId']
-    # If the file didn't even start to get uploaded, mark it as 0 percent done
-    if uploads[uploadId]?
-      res.end JSON.stringify { 'progress': uploads[uploadId]['progress'] }
-    else
-      res.end JSON.stringify { 'progress': 0 }
+
+    upload = Upload.fetch uploadId
+    res.end upload.toJSON()
 
   # its not a recognized route try to resolve as a static or throw 404
   else

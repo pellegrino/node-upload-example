@@ -3,6 +3,9 @@ class Upload
 
   @start: (uploadId) ->
     @uploads[uploadId] = new Upload()
+    @uploads[uploadId].uploadId = uploadId
+
+    @uploads[uploadId]
 
   @fetch: (uploadId) ->
     return @uploads[uploadId]
@@ -16,11 +19,11 @@ class Upload
   complete: ->
     @progress() == 100 
   
-  addProgress: (bytesReceived, bytesExpected) ->
+  updateProgress: (bytesReceived, bytesExpected) ->
     @bytesReceived = bytesReceived
     @bytesExpected = bytesExpected
 
-  setFile: (file) ->
+  updateFile: (file) ->
     @path = "#{file['path']}/#{file['name']}"
 
   getPath: ->
@@ -31,6 +34,16 @@ class Upload
   
   setDescription: (description) ->
     @description = description
+
+  toJSON: ->
+    JSON.stringify {
+      uploadId: @uploadId,
+      progress: @progress(),
+      description: @getDescription(),
+      path: @getPath()
+    }
+
+
     
 
 module.exports.Upload = Upload
