@@ -111,8 +111,6 @@ Polling is definitely not well suited for real world scenario. In a production e
 
 Also some form of accessing the uploaded file is something that should be taken care at a production app. 
 
-
-
 ## Credits
 
 Vitor Pellegrino <vitorp@gmail.com> , March, 2012

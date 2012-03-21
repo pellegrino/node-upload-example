@@ -32,32 +32,34 @@ $(document).ready(function () {
   $('#description-form').find('form').bind('submit', function(e) {
     // prevents the form to being submitted 
     e.preventDefault();
-$.post("/uploads/description", { 
-        "uploadId": $('#uploadId').val(),  
-        "description": $('#uploadDescriptionField').val()
-      }, 
-      function (data) {
-        $('#uploadDescription').html(data['description']);
-        $('#uploadDescription').addClass('present');
-      }
-    );
+    $.post("/uploads/description", { 
+      "uploadId": $('#uploadId').val(),  
+      "description": $('#uploadDescriptionField').val()
+    }, 
+    function (data) {
+      $('#uploadDescription').html(data['description']);
+      $('#uploadDescription').addClass('present');
+    });
 
   });
-  
+
 });
 
 // generate a random UUIDish to represent this uploaded file
 function generateUploadId() {
-  var S4 = function() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  };
   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
+
+// Random value
+var S4 = function() {
+  return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+};
 
 // Fetches the server for progress and calls itself recursively 
 // if upload is still running
 function fetchProgress(uploadId){
-  $.getJSON("/progress?uploadId=" + uploadId, function (response){
+  // Adding random number to avoid being wrongly cached.
+  $.getJSON("/progress?uploadId=" + uploadId + "&r=" + S4()+S4()+S4(), function (response){
     $('#uploadProgress').progressbar({
       value: response['progress']
     }); 
