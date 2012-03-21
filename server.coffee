@@ -7,7 +7,7 @@ util       = require 'util'
 
 uploads = []
 
-PORT = if process.env.NODE_ENV == 'production' then '80' else '8000'
+PORT = process.env.PORT || '8000'
 
 # handle static resolving
 # if there is not a static with the given pathname, will resolve it as a 404
