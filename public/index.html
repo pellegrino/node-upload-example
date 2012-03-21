@@ -20,20 +20,18 @@
         <ol>
           <li>
             <input type="file" name="upload">
-            <input type="hidden" name="uploadId" id="uploadId"/>
           </li>
 
-          <div id="uploadProgress"></div>
-          <div id="uploadStatus"></div>
         </ol>
       </form>
     </div>
 
     <div id="description-form">
-      <form action="/description" method="POST">
+      <form action="/uploads/description" method="POST">
+        <input type="hidden" name="uploadId" id="uploadId"/>
         <ol>
           <li>
-          <textarea name="description"></textarea>
+            <textarea name="description" id="uploadDescriptionField"></textarea>
           </li>
           <li> 
           <input type="submit" value="save">
@@ -42,7 +40,11 @@
       </form>
     </div>
     <iframe id="uploadTarget" name="uploadTarget" frameborder="0"></iframe>
-    
+
+    <div id="uploadProgress"></div>
+    <div id="uploadStatus"></div>
+    <div id="uploadDescription"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
     <script src="/js/upload.js"></script>    
   </body>

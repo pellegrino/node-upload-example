@@ -6,11 +6,12 @@ $(document).ready(function () {
     $(this).parents('form').attr("action", "/uploads?uploadId=" + uploadId).submit(); 
 
     $(document).trigger('uploadStarted', uploadId);
-    $(this).parents('form').submit(); 
   });
 
   // handles progress 
   $(document).bind('uploadStarted', function(e, uploadId){
+    // Sets the description form the correct uploadId 
+    $('#uploadId').val(uploadId);
     fetchProgress(uploadId);
   });
 
@@ -19,6 +20,23 @@ $(document).ready(function () {
     $('#uploadStatus').html('File was stored in ' + response['path'] + response['name']);
   });
 
+
+  // handle description form
+  $('#description-form').find('form').bind('submit', function(e) {
+    // prevents the form to being submitted 
+    e.preventDefault();
+$.post("/uploads/description", 
+      { 
+        "uploadId": $('#uploadId').val(),  
+        "description": $('#uploadDescriptionField').val()
+      }, 
+      function (data) {
+        $('#uploadDescription').html(data['description']);
+      }
+    );
+
+  });
+  
 });
 
 // generate a random UUIDish to represent this uploaded file
@@ -29,6 +47,8 @@ function generateUploadId() {
   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 
+// Fetches the server for progress and calls itself recursively 
+// if upload is still running
 function fetchProgress(uploadId){
   $.getJSON("/progress?uploadId=" + uploadId, function (response){
     $('#uploadProgress').html("File is " + response['progress'] + " percent completed"); 
