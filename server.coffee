@@ -42,7 +42,7 @@ http.createServer (req, res) ->
 
     # start a new upload using the provided uploadId 
     uploadId = url.parse(req.url, true).query['uploadId']
-    uploads[uploadId] =  { 'progress': 0, 'description': '' }
+    uploads[uploadId] =  { 'progress': 0, 'description': '' , 'path': '', 'id': uploadId}
 
     # track progress 
     form.on 'progress', (bytesReceived, bytesExpected) ->
@@ -52,7 +52,8 @@ http.createServer (req, res) ->
     form.parse req, (err, fields, files) ->
       fs.readFile "./public/uploadResult.html", 'utf-8', (error, content) ->
         res.writeHead 200, { "Content-Type" : 'text/html' }
-        output = Mustache.to_html content, { upload: files['upload'], id: uploadId }
+        uploads[uploadId]['path'] = "#{files['upload']['path']}/#{files['upload']['name']}"
+        output = Mustache.to_html content, { upload: uploads[uploadId] }
         res.end output
 
   # POST /uploads/description
@@ -64,7 +65,7 @@ http.createServer (req, res) ->
       uploadId = fields['uploadId']
       uploads[uploadId]['description'] = fields['description']
       res.writeHead 200, { "Content-Type" : "application/json" } 
-      res.end JSON.stringify(fields)
+      res.end JSON.stringify(uploads[uploadId])
 
   # GET /progress?uploadId=42 
   else if pathname == '/progress' && req.method.toLowerCase() == 'get'
@@ -76,7 +77,6 @@ http.createServer (req, res) ->
       res.end JSON.stringify { 'progress': uploads[uploadId]['progress'] }
     else
       res.end JSON.stringify { 'progress': 0 }
-
 
   # its not a recognized route try to resolve as a static or throw 404
   else

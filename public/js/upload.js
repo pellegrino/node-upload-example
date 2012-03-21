@@ -17,7 +17,7 @@ $(document).ready(function () {
 
   // handles upload completion 
   $(document).bind('uploadFinished', function(e, response){
-    $('#uploadStatus').html('File was stored in ' + response['path'] + response['name']);
+    $('#uploadStatus').html('File was stored in ' + response['path']);
   });
 
 
