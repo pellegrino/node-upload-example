@@ -8,7 +8,6 @@ body {
 
 a {
   color:  #C00;
-
 }
 
 iframe#uploadTarget {
@@ -74,5 +73,5 @@ form label {
 
 #footer p {
   font-size: 0.8em;
-  color: #c4bfbf;
+  color: #999;
 }

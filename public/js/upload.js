@@ -12,7 +12,7 @@ $(document).ready(function () {
   $(document).bind('uploadStarted', function(e, uploadId){
     // Sets the description form the correct uploadId 
     $('#uploadId').val(uploadId);
-    // cleans upload state
+    // cleans last upload state
     $('#uploadDescriptionSubmit').removeAttr('disabled');
     $('#uploadProgres').html('');
     $('#uploadStatus').html('');
