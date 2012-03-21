@@ -1,26 +1,73 @@
-# Upload
+# Node Upload Example 
 
 It is a small project created to demonstrate non blocking uploads with a minimum set of dependencies. 
 
 ## Techonology stack 
 
-* node.js
-* node-formidable - to handle multipart uploads 
-* mustache.js - Logic less template engine
-* jquery 
-* vows - to write tests 
+### Coffeescript
+
+Being coffeescript is a powerful language that compiles to (really nice) Javascript code, it was my weapon of choice for this project, since it made the code much more concise and also made sure that it was 
+
+###  Node.js
+
+Given the requirement for the solution to handle simultaneous download, node.js was a quite happy choice, given the event oriented aspect of the platform. Using it i could make the file uploads async, so the project.
+
+I also didn't have much experience with both Node.js and Coffescript, so my curiosity to get something written with those tools was also a big plus for this choice. :)
+
+
+
+## Dependencies
+
+### Node-formidable
+
+I've opt for using it since it made handling file uploads easier. I could have rolled the multipart binary parsing on my own, but i thought it would increase the amount of code at a point that it could get distracting for the purpose of this example. 
+
+### Mustache.js
+
+I've used it also very lightly, only at the upload response view i needed to make it dynamic. I also could have rolled my own here, but i thought it would be *okay* to use it. But after finishing, i'm starting to think i should have implemented a simple regex substitution to get rid of this additional dependency. :cry:
+
+
+### jQuery & jQuery-UI 
+
+Used it to write the client side javascript and used jQuery-UI to create the progress bar. 
+
+
+
+### Vows
+
+I normally use tests to drive the design of my solotuins. In this case, i've used vows to drive the implementation of my Upload model. I have never used Vows at the past but it ended up being a pleasant experience to write tests using it. 
 
 ## Installation 
 
-_TODO_ 
+The dependencies are listed using node's package.json file. Assuming you have both node and npm installed and available at your path, running the command below will get everything ready to use. 
 
-## Running
+      npm install 
 
-_TODO_ 
+This project was developed using the following versions
+
+      ➜  upload git:(master) ✗ node -v 
+      v0.6.13-pre
+      ➜  upload git:(master) ✗ npm -v 
+      1.1.4
+
+
+### Running
+
+Run the command below to get your server started. 
+
+      ➜  upload git:(master) ✗ ./node_modules/coffee-script/bin/coffee server.coffee 
+
+Alternatively, if you have coffescript available at your path you can use 
+
+      ➜  upload git:(master) ✗ coffee server.coffee
+
+No output is expected from the server, but you can access the application at [http://localhost:8000](http://localhost:8000/)
+
 
 ## Demo 
+
+This application is deployed at [http://node-upload-example.herokuapp.com/](http://node-upload-example.herokuapp.com/), using the Heroku cedar stack. 
  
-_TODO_ 
 
 ## Considerations in a real world scenario
 
