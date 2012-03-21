@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('#uploadDescriptionSubmit').removeAttr('disabled');
     $('#uploadProgres').html('');
     $('#uploadStatus').html('');
-    $('#uploadDescription').html('');
+    $('#uploadDescription').html('').removeClass('present');
 
     fetchProgress(uploadId);
   });
@@ -37,6 +37,7 @@ $.post("/uploads/description", {
       }, 
       function (data) {
         $('#uploadDescription').html(data['description']);
+        $('#uploadDescription').addClass('present');
       }
     );
 

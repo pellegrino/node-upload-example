@@ -24,9 +24,11 @@ form label {
   width: 960px;
   margin: 0 auto;
 
+  text-align: center;
+
   background-color: white;
   min-height: 500px;
-  padding: 1em 1em 1em 2em;
+  padding: 2em;
 }
 
 
@@ -47,20 +49,24 @@ form label {
   height: 130px;
 }
 
-#container #description-form #uploadDescriptionSubmit {
-  color: blue;
-  float: right
-  padding: 1em;
+
+#uploadDetails , #footer {
+  text-align: left;
 }
 
+#footer {
+  border-top: 1px solid #eee;
+}
 
 #container #uploadDetails #uploadDescription {
   padding: 2em;
-  background-color: #eee;
+}
+
+#container #uploadDetails #uploadDescription.present {
+  background-color: #e1e1e1;
 }
 
 #footer p {
   font-size: 0.8em;
   color: #666;
-
 }
